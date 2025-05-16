@@ -1,0 +1,17 @@
+# https://kubernetes.io/docs/concepts/configuration/configmap/
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spark-conf
+  namespace: default
+data:
+  spark-defaults.conf: |
+    spark.master                  yarn
+    spark.submit.deployMode       cluster
+
+    spark.eventLog.enabled        true
+    spark.eventLog.dir            hdfs://hadoop-cluster/tmp/spark-events
+    spark.history.fs.logDirectory hdfs://hadoop-cluster/tmp/spark-events
+  spark-env.sh: |
+    HADOOP_CONF_DIR=/home/spark/spark-current/conf/hadoop
+    YARN_CONF_DIR=/home/spark/spark-current/conf/hadoop

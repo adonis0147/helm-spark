@@ -1,0 +1,50 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: spark
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: spark
+  serviceName: spark
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spark
+    spec:
+      containers:
+        - name: spark
+          image: {{ .Values.image }}
+          imagePullPolicy: Never
+          command:
+            - sleep
+            - infinity
+          volumeMounts:
+            - name: spark-conf
+              mountPath: /home/spark/spark-current/conf/spark-defaults.conf
+              subPath: spark-defaults.conf
+            - name: spark-conf
+              mountPath: /home/spark/spark-current/conf/spark-env.sh
+              subPath: spark-env.sh
+            - name: hdfs-conf
+              mountPath: /home/spark/spark-current/conf/hadoop/core-site.xml
+              subPath: core-site.xml
+            - name: hdfs-conf
+              mountPath: /home/spark/spark-current/conf/hadoop/hdfs-site.xml
+              subPath: hdfs-site.xml
+            - name: yarn-conf
+              mountPath: /home/spark/spark-current/conf/hadoop/yarn-site.xml
+              subPath: yarn-site.xml
+      volumes:
+        - name: spark-conf
+          configMap:
+            name: spark-conf
+        - name: hdfs-conf
+          configMap:
+            name: hdfs-conf
+        - name: yarn-conf
+          configMap:
+            name: yarn-conf
