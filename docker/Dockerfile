@@ -16,6 +16,7 @@ WORKDIR /home/spark
 
 COPY --from=builder spark-* /home/spark/spark-current
 COPY --from=builder /jdk-* /opt/java
+COPY ./*.jar /home/spark/spark-current/jars/
 
 ENV PATH="/opt/java/bin:/home/spark/spark-current/bin:${PATH}"
 ENV JAVA_HOME='/opt/java'

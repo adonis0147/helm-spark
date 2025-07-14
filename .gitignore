@@ -1,2 +1,3 @@
 docker/*.tar.gz
 docker/*.tgz
+docker/*.jar
