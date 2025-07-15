@@ -10,8 +10,8 @@ data:
     spark.submit.deployMode       cluster
 
     spark.eventLog.enabled        true
-    spark.eventLog.dir            hdfs://hadoop-cluster/tmp/spark-events
-    spark.history.fs.logDirectory hdfs://hadoop-cluster/tmp/spark-events
+    spark.eventLog.dir            hdfs:///tmp/spark-events
+    spark.history.fs.logDirectory hdfs:///tmp/spark-events
   spark-env.sh: |
     HADOOP_CONF_DIR=/home/spark/spark-current/conf/hadoop
     YARN_CONF_DIR=/home/spark/spark-current/conf/hadoop
